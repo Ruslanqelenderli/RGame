@@ -1,0 +1,144 @@
+﻿@model MvcFinalApp.Models.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@{
+    ViewBag.Title = "Home";
+}
+<br />
+<br />
+<br />
+
+
+
+<!--blog-grid-->
+<section class="blog-grid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8 mt-30">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        @foreach (var item in Model.Games)
+                        {
+                            <!--Post-1-->
+                            <div class="post-card" id="proj">
+                                <div class="post-card-image">
+                                    <a href="@Url.Action("GameInfo","GameInfo",new { id=item.Id})">
+                                        <img src="~/Uploads/GameImage/@item.GamePhoto" alt="">
+                                    </a>
+                                </div>
+
+                                <div class="post-card-content">
+                                    <a href="@Url.Action("GetCategory", "Home", new { id = item.Id })" class="categorie">@item.Category.Name</a>
+                                    <h5>
+                                        <a href="@Url.Action("GameInfo","GameInfo",new { id=item.Id})">@item.Name</a>
+                                    </h5>
+                                    <p>@item.Description</p>
+                                    <div class="post-card-info">
+                                        <ul class="list-inline">
+                                            <li>
+
+                                                <img src="~/Uploads/UserImage/@item.User.UserPhoto" alt="">
+
+                                            </li>
+                                            <li>
+                                                @item.User.Name @item.User.Surname
+                                            </li>
+                                            <li class="dot"></li>
+                                            <li>@item.CreateDate.ToString("yy/MM/dd")</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/-->
+                        }
+
+                    </div>
+
+                </div>
+
+
+                <!--pagination-->
+
+
+            </div>
+            <div class="col-lg-4 max-width">
+
+                <!--widget-latest-posts-->
+                <div class="widget ">
+                    <div class="section-title">
+                        <h5>Latest Posts</h5>
+                    </div>
+                    <ul class="widget-latest-posts">
+                        @{ int i = 0;}
+                        @foreach (var item in Model.Games)
+                        {
+                            i++;
+                            if (i == 6) { break; }
+
+                            <li class="last-post">
+                                <div class="image">
+                                    <a href="@Url.Action("GameInfo","GameInfo",new { id=item.Id})">
+                                        <img src="~/Uploads/GameImage/@item.GamePhoto" alt="...">
+                                    </a>
+                                </div>
+                                <div class="nb">@i</div>
+                                <div class="content">
+                                    <p>
+                                        <a href="@Url.Action("GameInfo","GameInfo",new { id=item.Id})">@item.Name</a>
+                                    </p>
+                                    <small>
+                                        <span class="icon_clock_alt"></span> @item.CreateDate.ToString("yy/MM/dd")
+                                    </small>
+                                </div>
+                            </li>
+                        }
+
+
+                    </ul>
+                </div>
+                <div class="widget">
+                    <div class="section-title">
+                        <h5>Search</h5>
+                    </div>
+                    <div class="">
+                        @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+                        {
+                            <input type="text" name="Search" class="form-control" />
+                            <input type="submit" value="Search" class="form-control" />
+                        }
+
+
+                    </div>
+                </div>
+                <!--/-->
+                <!--widget-categories-->
+                <div class="widget">
+                    <div class="section-title">
+                        <h5>Categories</h5>
+                    </div>
+                    <ul class="widget-categories">
+                        <li>
+                            <a href="@Url.Action("Index","Home")" class="categorie">All Games</a>
+                            <span class="ml-auto">@Model.AllGames.Count() Posts</span>
+                        </li>
+                        @foreach (var item in Model.Categories)
+                        {
+                            <li>
+                                <a href="@Url.Action("GetCategory","Home",new { id=item.Id})" class="categorie">@item.Name</a>
+                                <span class="ml-auto">@item.Games.Where(x => x.Confirm == "Correct").Count() Posts</span>
+                            </li>
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/-->
+<!--newslettre-->

@@ -1,0 +1,15 @@
+﻿@model MvcFinalApp.Models.ViewModels.ReportViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Reports</h3>
+<p>The total number of games on the site:@Model.Games.Count()</p>
+<p>Games downloaded this month:@Model.ThisGames.Count()</p>
+<p>Report of games by categories</p>
+@foreach (var item in Model.Categories)
+{
+    <p>@item.Name:@Model.Games.Where(x=>x.Category.Name==item.Name).Count()</p>
+}
+
+

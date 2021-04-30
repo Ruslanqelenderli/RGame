@@ -1,0 +1,105 @@
+﻿@model MvcFinalApp.Models.ViewModels.ProfileViewModel
+@{
+    ViewBag.Title = "UserProfile";
+    
+}
+
+<section class="section author full-space mb-40 pt-55">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <!--widget-author-->
+                <div class="widget-author inner-width">
+
+                    <img src="~/Uploads/UserImage/@Model.User.UserPhoto" alt="">
+
+                    <br />
+                    <div style="color:darkblue"><a href="@Url.Action("EditUser","Game",new { id=Model.User.Id})">Edit Your Profile</a></div>
+                    <br />
+                    
+                    <h6><span>Hi, I'm @Model.User.Name @Model.User.Surname</span></h6>
+                    <div class="link">@Model.Games.Count() Games</div>
+                    <p>@Model.User.Description</p>
+
+
+
+
+                    @for (int i = 0; i < 2; i++)
+                    {
+                        <br />
+                    }
+                    <a href="@Url.Action("AddGame","Game")"><i class="fa fa-upload btn" style="font-size:30px;"></i>   Add Game </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--mansory-layout-->
+<section class="masonry-layout col2-layout mt-30">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <!--cards-->
+                <div class="card-columns">
+                    @foreach (var item in Model.Games)
+                    {
+                        <!--Post-1-->
+                        <div class="card">
+                            <div class="post-card post-full">
+                                <div class="post-card-image">
+                                    <a href="@Url.Action("GameInfo","GameInfo",new { id=item.Id})"><img src="~/Uploads/GameImage/@item.GamePhoto" alt=""></a>
+                                </div>
+                                <div class="post-card-content">
+                                    <a href="@Url.Action("GetCategory", "Home", new { id = item.Id })" class="categorie">@item.Category.Name</a>
+                                    <h5>
+                                        <a href="@Url.Action("GameInfo","GameInfo",new { id=item.Id})">@item.Name</a>
+                                    </h5>
+                                    <p>@item.Description</p>
+                                    <a href="@Url.Action("EditGame","Game",new { id=item.Id})" class='fas fa-edit categorie' style="background-color:dodgerblue ;padding: 10px 20px; color:navajowhite; font-size:24px">Edit</a>
+                                    <a href="@Url.Action("Delete","Game",new { id=item.Id})" class='fas fa-edit categorie' style="background-color:dodgerblue ;padding: 10px 20px; color:navajowhite; font-size:24px">Delete</a>
+                                    <div class="post-card-info">
+                                        <ul class="list-inline">
+                                            <li>
+
+                                                <img src="~/Uploads/UserImage/@Model.User.UserPhoto" alt="">
+
+                                            </li>
+                                            <li>
+                                                @Model.User.Name @Model.User.Surname
+                                            </li>
+                                            <li class="dot"></li>
+                                            <li>@item.CreateDate.ToString("yy/MM/dd")</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/-->
+                        </div>
+                    }
+
+
+
+                </div>
+
+                
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--/-->
+<!--newslettre-->
+<section class="newslettre">
+    <div class="container-fluid">
+        <div class="newslettre-width text-center">
+            
+            <div class="social-icones">
+                <ul class="list-inline">
+                   
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

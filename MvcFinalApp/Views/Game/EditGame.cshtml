@@ -1,0 +1,81 @@
+﻿@model MvcFinalApp.Models.ViewModels.AddGameViewModel
+@{
+    ViewBag.Title = "EditGame";
+}
+<section class="section pt-55 mb-50">
+    <div class="container-fluid">
+        <div class="sign widget">
+            <div class="section-title">
+                <h5>Game Edit</h5>
+            </div>
+
+            <form class=" " method="post" enctype="multipart/form-data">
+                <div class="form-group">
+
+                    <input type="text" class="form-control" placeholder="Name*" name="Name" value="@Model.Game.Name">
+                </div>
+                <div class="form-group">
+
+                    <input type="text" class="form-control" placeholder="Description*" name="Description" value="@Model.Game.Description">
+                </div>
+                <div class="form-group">
+
+                    <input type="text" class="form-control" placeholder="DownloadLink*" name="DownloadLink" value="@Model.Game.DownloadLink">
+                </div>
+                <div class="form-group">
+
+                    <input type="number" class="form-control" placeholder="Size*" name="Size" value="@Model.Game.Size">
+                </div>
+                <div class="form-group">
+
+                    <input type="text" class="form-control" placeholder="Language*" name="Language" value="@Model.Game.Language">
+                </div>
+                <div class="form-group">
+
+                    <input type="text" class="form-control" placeholder="Processor*" name="Processor" value="@Model.Game.Processor">
+                </div>
+                <div class="form-group">
+
+                    <input type="number" class="form-control" placeholder="RamSize*" name="RamSize" value="@Model.Game.RamSize">
+                </div>
+                <div class="form-group">
+
+                    <input type="text" class="form-control" placeholder="GraphicsCard*" name="GraphicsCard" value="@Model.Game.GraphicsCard">
+                </div>
+                <div class="form-group">
+
+                    <input type="number" class="form-control" placeholder="DiskSpace*" name="DiskSpace" value="@Model.Game.DiskSpace">
+                </div>
+                <div class="form-group">
+
+                    <input type="file" accept="image/*" class="form-control" name="GamePhoto" value="">
+                </div>
+                <div class="form-group">
+
+                    <select name="CategoryId" class="form-control">
+                       
+                        @foreach (var item in Model.Categories)
+                        {
+                            
+                                <option value="@item.Id">@item.Name</option>
+                                
+
+                        }
+                    </select>
+
+
+                </div>
+
+
+
+                <div class="form-group">
+                    <button type="submit" class="btn-custom">Edit</button>
+                </div>
+
+            </form>
+        </div>
+
+
+    </div>
+</section>
+

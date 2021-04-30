@@ -1,0 +1,58 @@
+﻿@model List<MvcFinalApp.Models.RGameModel.Game>
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<table class="table table-bordered">
+    <thead class="toast-header">
+        <tr>
+            <th><a href="@Url.Action("Index","Home")">Home</a></th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Download Link</th>
+            <th>Size</th>
+            <th>Confirm</th>
+            <th>Create Date</th>
+            <th>Language</th>
+            <th>Processor</th>
+            <th>RamSize</th>
+            <th>Graphics Card</th>
+            <th>Disk Space</th>
+            <th>User</th>
+            <th>Category</th>
+            <th>GamePhoto</th>
+            <th>Confirm Result</th>
+        </tr>
+    </thead>
+    <tbody class="">
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td></td>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td><a href="@item.DownloadLink">@item.DownloadLink</a></td>
+                <td>@item.Size</td>
+                <td>@item.Confirm</td>
+                <td>@item.CreateDate.ToString("yy/MM/dd")</td>
+                <td>@item.Language</td>
+                <td>@item.Processor</td>
+                <td>@item.RamSize</td>
+                <td>@item.GraphicsCard</td>
+                <td>@item.DiskSpace</td>
+                <td>@item.User.Name</td>
+                <td>@item.Category.Name</td>
+                <td><img src="~/Uploads/GameImage/@item.GamePhoto" width="50px" ; height="60px" /></td>
+                <td><a href="@Url.Action("Yes", "Project",new { id = item.Id })";>Yes</a>/<a href="@Url.Action("No", "Project",new { id = item.Id })">No</a></td>
+            </tr>
+        }
+
+
+
+    </tbody>
+</table>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
