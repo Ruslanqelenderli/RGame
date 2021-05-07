@@ -36,8 +36,7 @@ namespace MvcFinalApp.Controllers
                         Session["Login"] = "Loginned";
                         
                         Session["User"] = item;
-                        if (item.Role == Role.User.ToString()) { return RedirectToAction("Index", "Home"); }
-                        else { return RedirectToAction("Index", "Home", new { area = "Manage" }); }
+                        return RedirectToAction("Index", "Home"); 
                     }
                     
                 }
@@ -55,45 +54,43 @@ namespace MvcFinalApp.Controllers
         
         public ActionResult Register(User user, string PasswordAgain)
         {
-            UserService service = new UserService(db);
-            if (user.Email != null &&
-                user.Surname != null &&
-                user.PhoneNumber != 0 &&
-                user.Name != null &&
-                user.Password !=null)
+            if (ModelState.IsValid)
             {
-                var all = service.GetAll();
-                foreach (var item in all)
-                {
-                    if (user.Email == item.Email)
+                UserService service = new UserService(db);
+                
+                    var all = service.GetAll();
+                    foreach (var item in all)
                     {
-                        Session["IncorrectCells"] = "This email has been used.";
-                        return RedirectToAction("Register");
+                        if (user.Email == item.Email)
+                        {
+                            ModelState.AddModelError("EmailCheck", "This email has been used.");
+                            return View(user);
+                        }
                     }
-                }
-                if (ModelState.IsValid && user.Password==PasswordAgain)
-                {
-                    
+                    if (user.Password == PasswordAgain)
+                    {
+
                         string hashed = Crypto.HashPassword(user.Password);
                         user.Password = hashed;
-                    
-                    
-                    user.UserPhoto = "UserPhoto.png";
-                    user.Role = Role.User.ToString();
-                    user.EmailPassword = "123";
-                    service.Add(user);
-                    return RedirectToAction("Login");
-                }
-                else
-                {
-                    Session["IncorrectCells"] = "Incorrect Cells";
-                    return RedirectToAction("Register");
-                }
+
+
+                        user.UserPhoto = "UserPhoto.png";
+                        user.Role = Role.User.ToString();
+                        user.EmailPassword = "123";
+                        service.Add(user);
+                        return RedirectToAction("Login", "User");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("PasswordAgain", "Please add correct password.");
+                        return View(user);
+                    }
+                
             }
             else
             {
-                Session["IncorrectCells"] = "Incorrect Cells";
-                return RedirectToAction("Register");
+                
+                return View(user);
             }
 
             

@@ -1,9 +1,17 @@
 ﻿@model MvcFinalApp.Models.ViewModels.ProfileViewModel
 @{
     ViewBag.Title = "UserProfile";
-    
-}
 
+}
+@if (Session["GameAddAdmin"] != null)
+{
+<script type="text/javascript">
+            window.onload = function () {
+                alert("Game sent to Admin");
+            };
+</script>
+    Session["GameAddAdmin"] = null;
+}
 <section class="section author full-space mb-40 pt-55">
     <div class="container-fluid">
         <div class="row">

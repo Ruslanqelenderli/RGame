@@ -3,13 +3,23 @@
     ViewBag.Title = "Index";
 }
 
-<h3>Reports</h3>
+<h3 style="color:black">Reports</h3>
+<br />
 <p>The total number of games on the site:@Model.Games.Count()</p>
 <p>Games downloaded this month:@Model.ThisGames.Count()</p>
-<p>Report of games by categories</p>
+<br />
+<h5 style="color:black" >Report of games by categories</h5>
+<br />
 @foreach (var item in Model.Categories)
 {
-    <p>@item.Name:@Model.Games.Where(x=>x.Category.Name==item.Name).Count()</p>
+<p>@item.Name:There are @Model.Games.Where(x => x.Category.Name == item.Name).Count() games in this category</p>
+}
+<br />
+<h5 style="color:black" >Report of games by users</h5>
+<br />
+@foreach (var item in Model.Users)
+{
+<p>@item.Name : This user has @item.Games.Count() games.</p>
 }
 
 

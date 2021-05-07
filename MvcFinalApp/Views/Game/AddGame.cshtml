@@ -1,4 +1,4 @@
-﻿@model MvcFinalApp.Models.ViewModels.AddGameViewModel
+﻿@model MvcFinalApp.Models.RGameModel.Game
 @{
     ViewBag.Title = "Add";
 }
@@ -8,75 +8,112 @@
             <div class="section-title">
                 <h5>Game Add</h5>
             </div>
-
-            <form class=" " method="post" enctype="multipart/form-data">
+            @using (Html.BeginForm("AddGame", "Game", FormMethod.Post,new { @enctype = "multipart/form-data" }))
+            {
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="Name*" name="Name" value="">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @*@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="Description*" name="Description" value="">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @*@Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="DownloadLink*" name="DownloadLink" value="">
+                    @Html.LabelFor(model => model.DownloadLink, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DownloadLink, new { htmlAttributes = new { @class = "form-control" } })
+                        @*@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="number" class="form-control" placeholder="Size*" name="Size" value="">
+                    @Html.LabelFor(model => model.Size, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Size, new { htmlAttributes = new { @class = "form-control" } })
+                        <select name="SizeVersion">
+                            <option value="1">MB</option>
+                            <option value="2">GB</option>
+                        </select>
+                        @*@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="Language*" name="Language" value="">
+                    @Html.LabelFor(model => model.Language, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Language, new { htmlAttributes = new { @class = "form-control" } })
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="Processor*" name="Processor" value="">
+                    @Html.LabelFor(model => model.Processor, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Processor, new { htmlAttributes = new { @class = "form-control" } })
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="number" class="form-control" placeholder="RamSize*" name="RamSize" value="">
+                    @Html.LabelFor(model => model.RamSize, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.RamSize, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="GraphicsCard*" name="GraphicsCard" value="">
+                    @Html.LabelFor(model => model.GraphicsCard, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GraphicsCard, new { htmlAttributes = new { @class = "form-control" } })
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="number" class="form-control" placeholder="DiskSpace*" name="DiskSpace" value="">
+                    @Html.LabelFor(model => model.DiskSpace, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DiskSpace, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="file" accept="image/*" class="form-control" name="GamePhoto" value="">
+                    @Html.LabelFor(model => model.GamePhoto, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GamePhoto, new { htmlAttributes = new { @class = "form-control",type="file",accept= "image/*" } })
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
+
                 <div class="form-group">
 
-                    <select name="CategoryId" class="form-control">
+                    @*<select name="CategoryId" class="form-control">
                         <option value="0"></option>
-                        @foreach (var item in Model.Categories)
+                        @foreach (var item in ViewBag.Categories)
                         {
                             <option value="@item.Id">@item.Name</option>
                         }
-                    </select>
+                    </select>*@
+                    @{
+                        var categories = new SelectList(ViewBag.Categories, "Id", "Name");
+
+                    }
+                    @*@Html.DropDownList("Id", categories, "Selectional", new { @class = "form-control" })*@
+                    @Html.DropDownList("CategoryId",categories, "Selectional", new { @class = "form-control" })
 
 
                 </div>
-                @if (Session["AddGameCheck"] != null)
-                {
-                    <div class="alert alert-danger" role="alert">
-                        Incorrect info
-                    </div>
-                    Session["AddGameCheck"] = null;
-                }
-
 
 
                 <div class="form-group">
                     <button type="submit" class="btn-custom">Add</button>
                 </div>
 
-            </form>
+
+            }
+            
+
         </div>
 
 

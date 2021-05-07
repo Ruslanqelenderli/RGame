@@ -78,3 +78,6 @@ C:\Users\User\source\repos\MvcFinalApp\MvcFinalApp\obj\Debug\MvcFinalApp.Migrati
 C:\Users\User\source\repos\MvcFinalApp\MvcFinalApp\obj\Debug\MvcFinalApp.csproj.GenerateResource.cache
 C:\Users\User\source\repos\MvcFinalApp\MvcFinalApp\obj\Debug\MvcFinalApp.Migrations.EmailPassword.resources
 C:\Users\User\source\repos\MvcFinalApp\MvcFinalApp\obj\Debug\MvcFinalApp.Migrations.AdminSetting.resources
+C:\Users\User\source\repos\MvcFinalApp\MvcFinalApp\obj\Debug\MvcFinalApp.Migrations.RGameDbContext.resources
+C:\Users\User\source\repos\MvcFinalApp\MvcFinalApp\obj\Debug\MvcFinalApp.Migrations.Validations.resources
+C:\Users\User\source\repos\MvcFinalApp\MvcFinalApp\obj\Debug\MvcFinalApp.Migrations.Gamevalidation.resources

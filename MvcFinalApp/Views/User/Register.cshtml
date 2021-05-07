@@ -1,4 +1,4 @@
-﻿
+﻿@model MvcFinalApp.Models.ManageModel.User
 @{
     ViewBag.Title = "Register";
 }
@@ -9,88 +9,64 @@
             <div class="section-title">
                 <h5>Sign up</h5>
             </div>
-
-            <form class="sign-form widget-form contact_form " method="post">
+            @using (Html.BeginForm("Register", "User", FormMethod.Post))
+            {
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="Name*" name="Name" value="">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @*@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="Surname*" name="Surname" value="">
+                    @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                        @*@Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="PhoneNumber*" name="PhoneNumber" value="">
+                    @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @*@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="email" class="form-control" placeholder="Email Address*" name="Email" value="">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @*@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="password" class="form-control" placeholder="Password*" name="Password" value="">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control",type="password" } })
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
+
+
                 <div class="form-group">
-
-                    <input type="password" class="form-control" placeholder="PasswordAgain*" name="PasswordAgain" value="">
-                </div>
-                <div>
-                    
+                    <label class="control-label col-md-6">Password Again</label>
+                    <div class="col-md-10">
+                        <input type="password" class="form-control text-box single-line" name="PasswordAgain" id="PasswordAgain" value="">
+                        
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <button type="submit" class="btn-custom">Sign Up</button>
                 </div>
                 <p class="form-group text-center">Already have an account? <a href="@Url.Action("Login","Manage")" class="btn-link">Login</a> </p>
-            </form>
+
+            }
+
         </div>
 
 
-    </div>
-</section>
-
-<!--newslettre-->
-<section class="newslettre">
-    <div class="container-fluid">
-        <div class="newslettre-width text-center">
-            <div class="newslettre-info">
-                <h5>Subscribe to our Newslatter</h5>
-                <p> Sign up for free and be the first to get notified about new posts. </p>
-            </div>
-            <form action="#" class="newslettre-form">
-                <div class="form-flex">
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Your email adress" required="required">
-                    </div>
-                    <button class="submit-btn" type="submit">Subscribe</button>
-                </div>
-            </form>
-            <div class="social-icones">
-                <ul class="list-inline">
-                    <li>
-                        <a href="#">
-                            <i class="fab fa-facebook-f"></i>Facebook
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fab fa-twitter"></i>Twitter
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fab fa-instagram"></i>Instagram
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fab fa-youtube"></i>Youtube
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
     </div>
 </section>
 

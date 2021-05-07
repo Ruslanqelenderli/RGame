@@ -10,6 +10,7 @@ namespace MvcFinalApp.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required(ErrorMessage ="Please add Name.")]
         public string Name { get; set; }
     }
 }

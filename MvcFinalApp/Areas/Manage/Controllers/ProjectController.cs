@@ -15,7 +15,7 @@ using System.Web.Mvc;
 
 namespace MvcFinalApp.Areas.Manage.Controllers
 {
-    [Auth]
+    [AuthAdmin]
     public class ProjectController : Controller
     {
         RGameDbContext db = new RGameDbContext();
@@ -56,7 +56,10 @@ namespace MvcFinalApp.Areas.Manage.Controllers
             SmtpClient smtp = new SmtpClient("smtp.gmail.com",587);
             smtp.DeliveryMethod=SmtpDeliveryMethod.Network;
             smtp.UseDefaultCredentials = false;
+                
             smtp.Credentials = new NetworkCredential(admin.Email,admin.EmailPassword);
+
+
             smtp.EnableSsl = true;
             smtp.Send(mail);
 

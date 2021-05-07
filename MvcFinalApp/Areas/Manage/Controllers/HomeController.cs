@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace MvcFinalApp.Areas.Manage.Controllers
 {
-    [Auth]
+    [AuthAdmin]
     public class HomeController : Controller
     {
         // GET: Manage/Home

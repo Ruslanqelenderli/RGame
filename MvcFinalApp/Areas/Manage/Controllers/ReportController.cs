@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace MvcFinalApp.Areas.Manage.Controllers
 {
-    [Auth]
+    [AuthAdmin]
     public class ReportController : Controller
     {
 
@@ -27,11 +27,14 @@ namespace MvcFinalApp.Areas.Manage.Controllers
             
             var thisgame = gameService.GetAll().Where(x => (date - x.CreateDate).Days < 31).ToList();
             var categories = categoryService.GetAll();
+            UserService userService = new UserService(db);
+            var users = userService.GetAll();
             ReportViewModel viewModel = new ReportViewModel()
             {
                 Games = games,
                 Categories = categories,
-                ThisGames = thisgame
+                ThisGames = thisgame,
+                Users = users
             };
 
             return View(viewModel);

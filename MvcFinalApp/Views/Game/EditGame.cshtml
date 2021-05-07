@@ -1,6 +1,6 @@
-﻿@model MvcFinalApp.Models.ViewModels.AddGameViewModel
+﻿@model MvcFinalApp.Models.RGameModel.Game
 @{
-    ViewBag.Title = "EditGame";
+    ViewBag.Title = "Add";
 }
 <section class="section pt-55 mb-50">
     <div class="container-fluid">
@@ -8,71 +8,106 @@
             <div class="section-title">
                 <h5>Game Edit</h5>
             </div>
-
-            <form class=" " method="post" enctype="multipart/form-data">
+            @using (Html.BeginForm("EditGame", "Game", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="Name*" name="Name" value="@Model.Game.Name">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control",value=Model.Name } })
+                        @*@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="Description*" name="Description" value="@Model.Game.Description">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", value = Model.Description } })
+                        @*@Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="DownloadLink*" name="DownloadLink" value="@Model.Game.DownloadLink">
+                    @Html.LabelFor(model => model.DownloadLink, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DownloadLink, new { htmlAttributes = new { @class = "form-control", value = Model.DownloadLink } })
+                        @*@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="number" class="form-control" placeholder="Size*" name="Size" value="@Model.Game.Size">
+                    @Html.LabelFor(model => model.Size, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Size, new { htmlAttributes = new { @class = "form-control", value = Model.Size } })
+                        <select name="SizeVersion">
+                            <option value="1">MB</option>
+                            <option value="2">GB</option>
+                        </select>
+                        @*@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="Language*" name="Language" value="@Model.Game.Language">
+                    @Html.LabelFor(model => model.Language, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Language, new { htmlAttributes = new { @class = "form-control", value = Model.Language } })
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="Processor*" name="Processor" value="@Model.Game.Processor">
+                    @Html.LabelFor(model => model.Processor, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Processor, new { htmlAttributes = new { @class = "form-control", value = Model.Processor } })
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="number" class="form-control" placeholder="RamSize*" name="RamSize" value="@Model.Game.RamSize">
+                    @Html.LabelFor(model => model.RamSize, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.RamSize, new { htmlAttributes = new { @class = "form-control", type = "number", value = Model.RamSize } })
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="text" class="form-control" placeholder="GraphicsCard*" name="GraphicsCard" value="@Model.Game.GraphicsCard">
+                    @Html.LabelFor(model => model.GraphicsCard, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GraphicsCard, new { htmlAttributes = new { @class = "form-control", value = Model.GraphicsCard } })
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="number" class="form-control" placeholder="DiskSpace*" name="DiskSpace" value="@Model.Game.DiskSpace">
+                    @Html.LabelFor(model => model.DiskSpace, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DiskSpace, new { htmlAttributes = new { @class = "form-control", type = "number", value = Model.DiskSpace } })
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
                 <div class="form-group">
-
-                    <input type="file" accept="image/*" class="form-control" name="GamePhoto" value="">
+                    @Html.LabelFor(model => model.GamePhoto, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GamePhoto, new { htmlAttributes = new { @class = "form-control", type = "file", accept = "image/*" } })
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
+
                 <div class="form-group">
 
-                    <select name="CategoryId" class="form-control">
-                       
-                        @foreach (var item in Model.Categories)
-                        {
-                            
-                                <option value="@item.Id">@item.Name</option>
-                                
+                    
+                    @{
+                        var categories = new SelectList(ViewBag.Categories, "Id", "Name");
 
-                        }
-                    </select>
+                    }
+                    @*@Html.DropDownList("Id", categories, "Selectional", new { @class = "form-control" })*@
+                    @Html.DropDownList("CategoryId", categories, "Selectional", new { @class = "form-control"})
 
 
                 </div>
-
 
 
                 <div class="form-group">
                     <button type="submit" class="btn-custom">Edit</button>
                 </div>
 
-            </form>
+
+            }
+
+
         </div>
 
 

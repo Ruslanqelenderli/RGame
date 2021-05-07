@@ -2053,6 +2053,7 @@
     <Content Include="Areas\Manage\Views\Project\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Project\No.cshtml" />
     <Content Include="Areas\Manage\Views\Report\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\Admin\Login.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2070,6 +2071,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Manage\Controllers\AdminController.cs" />
     <Compile Include="Areas\Manage\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Manage\Controllers\HomeController.cs" />
     <Compile Include="Areas\Manage\Controllers\ProjectController.cs" />
@@ -2087,6 +2089,7 @@
     <Compile Include="Enums\ConfirmEnum\Confirm.cs" />
     <Compile Include="Enums\RoleEnum\Role.cs" />
     <Compile Include="Filter\Auth.cs" />
+    <Compile Include="Filter\AuthAdmin.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2101,6 +2104,18 @@
     <Compile Include="Migrations\202104300906075_AdminSetting.cs" />
     <Compile Include="Migrations\202104300906075_AdminSetting.designer.cs">
       <DependentUpon>202104300906075_AdminSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105041636382_RGameDbContext.cs" />
+    <Compile Include="Migrations\202105041636382_RGameDbContext.designer.cs">
+      <DependentUpon>202105041636382_RGameDbContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105060827511_Validations.cs" />
+    <Compile Include="Migrations\202105060827511_Validations.designer.cs">
+      <DependentUpon>202105060827511_Validations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105071357576_Game validation.cs" />
+    <Compile Include="Migrations\202105071357576_Game validation.designer.cs">
+      <DependentUpon>202105071357576_Game validation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminSettings\Setting.cs" />
@@ -2158,6 +2173,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104300906075_AdminSetting.resx">
       <DependentUpon>202104300906075_AdminSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105041636382_RGameDbContext.resx">
+      <DependentUpon>202105041636382_RGameDbContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105060827511_Validations.resx">
+      <DependentUpon>202105060827511_Validations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105071357576_Game validation.resx">
+      <DependentUpon>202105071357576_Game validation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

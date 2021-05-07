@@ -12,7 +12,7 @@ using MvcFinalApp.Models.RGameModel;
 
 namespace MvcFinalApp.Areas.Manage.Controllers
 {
-    [Auth]
+    [AuthAdmin]
     public class CategoriesController : Controller
     {
         private RGameDbContext db = new RGameDbContext();

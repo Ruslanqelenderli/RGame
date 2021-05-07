@@ -110,51 +110,74 @@ namespace MvcFinalApp.Controllers
             GameService game = new GameService(db);
             var games = new Game();
             var categories = service.GetAll();
-            AddGameViewModel view = new AddGameViewModel()
-            {
-                Categories = categories,
-                Game=games
-            };
+            
+            ViewBag.Categories = categories;
 
-            return View(view);
+            return View(games);
         }
 
         [HttpPost]
-        public ActionResult AddGame(Game game, HttpPostedFileBase GamePhoto)
+        public ActionResult AddGame(Game game, HttpPostedFileBase GamePhoto,int SizeVersion)
         {
-            if (GamePhoto != null)
+            try
             {
-                if (GamePhoto.ContentLength > 1048576)
+                CategoryService catservice = new CategoryService(db);
+                var categories = catservice.GetAll();
+
+                ViewBag.Categories = categories;
+                if (ModelState.IsValid)
                 {
-                    Session["FileSize"] = "File size is a big";
-                    RedirectToAction("Create");
+                    if (GamePhoto != null)
+                    {
+                        if (GamePhoto.ContentLength > 1048576)
+                        {
+                            ModelState.AddModelError("PhotoLenght", "Please add correct Photo.");
+                            return View(game);
+                        }
+                        if (GamePhoto.ContentType != "image/jpeg" && GamePhoto.ContentType != "image/jpg" && GamePhoto.ContentType != "image/gif" && GamePhoto.ContentType != "image/png")
+                        {
+                            ModelState.AddModelError("PhotoLenght", "Please add correct Photo.");
+                            return View(game);
+                        }
+                    }
+
+
+
+                    string date = DateTime.Now.ToString("yyMMddHHmmss");
+                    string fileName = date + GamePhoto.FileName;
+                    string path = Path.Combine(Server.MapPath("~/Uploads/GameImage"), fileName);
+                    GamePhoto.SaveAs(path);
+                    if (SizeVersion==1)
+                    {
+                        float size = game.Size;
+                        size = size / 1024;
+                        game.Size = size;
+                    }
+                    game.GamePhoto = fileName;
+                    GameService service = new GameService(db);
+                    game.Confirm = Confirm.Incorrect.ToString();
+                    game.CreateDate = DateTime.Now;
+                    var user = Session["User"] as User;
+                    game.UserId = user.Id;
+                    service.Add(game);
+                    db.SaveChanges();
+                    Session["GameAddAdmin"] = true;
+                    return RedirectToAction("UserProfile", "Game");
                 }
-                if (GamePhoto.ContentType != "image/jpeg" && GamePhoto.ContentType != "image/jpg" && GamePhoto.ContentType != "image/gif" && GamePhoto.ContentType != "image/png")
-                {
-                    Session["FileSize"] = "Incorrect type";
-                    RedirectToAction("Create");
-                }
+                
+                return View(game);
+            }
+            catch (Exception)
+            {
+
+                ModelState.AddModelError("Size", "Please add correct Size.");
+                CategoryService catservice = new CategoryService(db);
+                var categories = catservice.GetAll();
+
+                ViewBag.Categories = categories;
+                return View(game);
             }
             
-            if (ModelState.IsValid)
-            {
-                string date = DateTime.Now.ToString("yyMMddHHmmss");
-                string fileName = date + GamePhoto.FileName;
-                string path = Path.Combine(Server.MapPath("~/Uploads/GameImage"), fileName);
-                GamePhoto.SaveAs(path);
-                game.GamePhoto = fileName;
-                GameService service = new GameService(db);
-                game.Confirm = Confirm.Incorrect.ToString();
-                game.CreateDate = DateTime.Now;
-                var user = Session["User"] as User;
-                game.UserId = user.Id;
-                service.Add(game);
-                db.SaveChanges();
-                return RedirectToAction("UserProfile","Game");
-            }
-            Session["AddGameCheck"] = true;
-            
-            return RedirectToAction("AddGame","Game");
         }
 
 
@@ -164,59 +187,78 @@ namespace MvcFinalApp.Controllers
             CategoryService category = new CategoryService(db);
             var categories = category.GetAll();
             var game = service.GetById(id);
-            AddGameViewModel view = new AddGameViewModel()
-            {
-                Categories = categories,
-                Game = game
-            };
 
-            return View(view);
+            ViewBag.Categories = categories;
+            return View(game);
         }
 
         [HttpPost]
-        public ActionResult EditGame(Game game, HttpPostedFileBase GamePhoto)
+        public ActionResult EditGame(Game game, HttpPostedFileBase GamePhoto,int SizeVersion)
         {
-            if (GamePhoto != null)
+            try
             {
+               
+                CategoryService category = new CategoryService(db);
+                var categories = category.GetAll();
+                ViewBag.Categories = categories;
+                if (ModelState.IsValid)
+                {
+                    if (GamePhoto != null)
+                    {
 
 
-                if (GamePhoto.ContentLength > 1048576)
-                {
-                    Session["FileSize"] = "File size is a big";
-                    RedirectToAction("Edit", "Project", new { id = game.Id });
+                        if (GamePhoto.ContentLength > 1048576)
+                        {
+                            ModelState.AddModelError("PhotoLenght", "Please add correct Photo.");
+                            return View(game);
+                        }
+                        if (GamePhoto.ContentType != "image/jpeg" && GamePhoto.ContentType != "image/jpg" && GamePhoto.ContentType != "image/gif" && GamePhoto.ContentType != "image/png")
+                        {
+                            ModelState.AddModelError("PhotoLenght", "Please add correct Photo.");
+                            return View(game);
+                        }
+                        string date = DateTime.Now.ToString("yyMMddHHmmss");
+                        string fileName = date + GamePhoto.FileName;
+                        string path = Path.Combine(Server.MapPath("~/Uploads/GameImage"), fileName);
+                        GamePhoto.SaveAs(path);
+                        if (SizeVersion == 1)
+                        {
+                            float size = game.Size;
+                            size = size / 1024;
+                            game.Size = size;
+                        }
+                        game.GamePhoto = fileName;
+                        Game proj = db.Games.Find(game.Id);
+                        System.IO.File.Delete(Path.Combine(Server.MapPath("~/Uploads/GameImage"), proj.GamePhoto));
+                        db.Entry(proj).State = EntityState.Detached;
+                    }
+
+
+                    game.Confirm = Confirm.Incorrect.ToString();
+                    db.Entry(game).State = EntityState.Modified;
+
+                    if (GamePhoto == null)
+                    {
+                        db.Entry(game).Property(p => p.GamePhoto).IsModified = false;
+                        db.Entry(game).Property(p => p.UserId).IsModified = false;
+                        db.Entry(game).Property(p => p.CreateDate).IsModified = false;
+
+                    }
+
+                    db.SaveChanges();
+                    return RedirectToAction("UserProfile"); ;
                 }
-                if (GamePhoto.ContentType != "image/jpeg" && GamePhoto.ContentType != "image/jpg" && GamePhoto.ContentType != "image/gif" && GamePhoto.ContentType != "image/png")
-                {
-                    Session["FileSize"] = "Incorrect type";
-                    RedirectToAction("Edit", "Project", new { id = game.Id });
-                }
-                string date = DateTime.Now.ToString("yyMMddHHmmss");
-                string fileName = date + GamePhoto.FileName;
-                string path = Path.Combine(Server.MapPath("~/Uploads/GameImage"), fileName);
-                GamePhoto.SaveAs(path);
-                game.GamePhoto = fileName;
-                Game proj = db.Games.Find(game.Id);
-                System.IO.File.Delete(Path.Combine(Server.MapPath("~/Uploads/GameImage"), proj.GamePhoto));
-                db.Entry(proj).State = EntityState.Detached;
+                return View(game);
             }
-
-            if (ModelState.IsValid)
+            catch (Exception)
             {
-                game.Confirm = Confirm.Incorrect.ToString();
-                db.Entry(game).State = EntityState.Modified;
-                
-                if (GamePhoto == null)
-                {
-                    db.Entry(game).Property(p => p.GamePhoto).IsModified = false;
-                    db.Entry(game).Property(p => p.UserId).IsModified = false;
-                    db.Entry(game).Property(p => p.CreateDate).IsModified = false;
-
-                }
-                
-                db.SaveChanges();
-                return RedirectToAction("UserProfile"); ;
+                CategoryService category = new CategoryService(db);
+                var categories = category.GetAll();
+                ViewBag.Categories = categories;
+                ModelState.AddModelError("Size", "Please add correct Size.");
+                return View(game);
             }
-            return RedirectToAction("EditGame");
+            
         }
         public ActionResult Delete(int id)
         {
